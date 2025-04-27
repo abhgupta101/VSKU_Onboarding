@@ -139,10 +139,11 @@ if uploaded_file:
 
         st.markdown(f"### Group {current_group_num + 1} ({len(imgs)} images)")
 
-        cols = st.columns(len(imgs))
+        max_columns = 5
+        cols = st.columns(min(len(imgs),max_columns))
 
         for idx, img_path in enumerate(imgs):
-            with cols[idx]:
+            with cols[idx % max_columns]:
                 st.image(img_path, width=250)
                 channel_name, channel_product_id, seller_sku, product_name, channel_code = st.session_state.image_info.get(img_path, ("Unknown", "Unknown", "Unknown", "Unknown", "Unknown"))
                 st.caption(f"Channel Product Id: {channel_product_id}")
